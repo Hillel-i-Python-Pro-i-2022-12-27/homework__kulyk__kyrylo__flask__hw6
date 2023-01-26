@@ -3,7 +3,8 @@
 ### Student [Hillel IT School](https://ithillel.ua/), I am from Odessa.
 ***
 ## 📝Homework 6
-Flask application
+Flask application \
+Homework 5 designed in the Flask framework
 ***
 ### ▶️Run
 Run homework.
