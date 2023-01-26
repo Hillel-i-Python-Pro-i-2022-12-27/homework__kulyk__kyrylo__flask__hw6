@@ -49,6 +49,7 @@ def to_generate_users(args) -> str:
     )
     return f"""
     <h3>Users:</h3>
+    <h4>The number of users in the list can be changed by adding to the link "...?amount=number", default amount=10</h4>
     <ol>{output}</ol>
     <h3></h3>
     <a href=/ class='page-to'>To the main »
