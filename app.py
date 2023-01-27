@@ -83,5 +83,10 @@ def to_get_average_values() -> str:
     """
 
 
+@app.route("/users/create")
+def user__create(args):
+    return "Ok"
+
+
 if __name__ == "__main__":
     app.run()
