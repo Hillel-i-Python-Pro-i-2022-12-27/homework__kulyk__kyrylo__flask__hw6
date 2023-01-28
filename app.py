@@ -18,14 +18,22 @@ app = Flask(__name__)
 def hello_world() -> str:
     return """
     <title>Flask Application</title>
-    <h1>Homework tasks:</h1>
-    <a href=/read_file class="page-to">Task 1 - Reading file. »
-    <h2></h2>
-    <a href=/users class="page-to">Task 2 - List of users. »
-    <h2></h2>
-    <a href=/astronauts class="page-to">Task 3 - List of astronauts. »
-    <h2></h2>
-    <a href=/calculate class="page-to">Task 4 - Calculate average values from CSV-file. »
+    <h1>Homework 6:</h1>
+    <a href=/read_file class="page-to">Task 1 - Reading file. »</a>
+    <h3></h3>
+    <a href=/users class="page-to">Task 2 - List of users. »</a>
+    <h3></h3>
+    <a href=/astronauts class="page-to">Task 3 - List of astronauts. »</a>
+    <h3></h3>
+    <a href=/calculate class="page-to">Task 4 - Calculate average values from CSV-file. »</a>
+    <h1>Homework 7:</h1>
+    <h3>DB created!</h3>
+    <a href=/contacts/read-all class="page-to">Read all contacts. »</a>
+    <h3>FAQ:</h3>
+    <h4>Add a contact to DB-> /contacts/create?contact_name=&phone_value=</h4>
+    <h4>Read a specific contact-> /contacts/read/<u>number</u></h4>
+    <h4>Update a specific contact-> /contacts/update/<u>number</u>?contact_name=&phone_value=</h4>
+    <h4>Delete a contact-> /contacts/delete/<u>number</u></h4>
     """
 
 
@@ -85,7 +93,7 @@ def to_get_average_values() -> str:
     """
 
 
-@app.route("/contact/create")
+@app.route("/contacts/create")
 @use_args({"contact_name": fields.Str(required=True), "phone_value": fields.Int(required=True)}, location="query")
 def contact__create(args):
     with DBConnect() as connection:
@@ -94,16 +102,24 @@ def contact__create(args):
                 "INSERT INTO phones (contact_name, phone_value) VALUES (:contact_name, :phone_value);",
                 {"contact_name": args["contact_name"], "phone_value": args["phone_value"]},
             )
-    return "Successful! Information added to the DB."
+    return """
+    Successful! Information added to the DB.
+    <h3></h3>
+    <a href=/ class='page-to'>To the main »
+    """
 
 
 @app.route("/contacts/read-all")
 def contact__read__all():
     with DBConnect() as connection:
         contacts = connection.execute("SELECT * FROM phones;").fetchall()
-    return "<br>".join(
+    return f"""
+    {"<br>".join(
         [f'{contact["phone_id"]}: {contact["contact_name"]} - {contact["phone_value"]}' for contact in contacts]
-    )
+    )}
+    <h3></h3>
+    <a href=/ class='page-to'>To the main »
+    """
 
 
 @app.route("/contacts/read/<int:phone_id>")
@@ -115,7 +131,11 @@ def contact__read(phone_id: int):
                 "phone_id": phone_id,
             },
         ).fetchone()
-    return f'{contact["phone_id"]}: {contact["contact_name"]} - {contact["phone_value"]}'
+    return f"""
+    {contact["phone_id"]}: {contact["contact_name"]} - {contact["phone_value"]}
+    <h3></h3>
+    <a href=/ class='page-to'>To the main »
+    """
 
 
 @app.route("/contacts/update/<int:phone_id>")
@@ -144,7 +164,11 @@ def contact__update(args, phone_id: int):
                     "phone_value": phone_value,
                 },
             )
-    return "Successful! Information updated to the DB."
+    return """
+    Successful! Information updated to the DB.
+    <h3></h3>
+    <a href=/ class='page-to'>To the main »
+    """
 
 
 @app.route("/contacts/delete/<int:phone_id>")
@@ -157,7 +181,11 @@ def contact__delete(phone_id):
                     "phone_id": phone_id,
                 },
             )
-    return "Deletion successful!"
+    return """
+    Deletion successful!
+    <h3></h3>
+    <a href=/ class='page-to'>To the main »
+    """
 
 
 create_table()
