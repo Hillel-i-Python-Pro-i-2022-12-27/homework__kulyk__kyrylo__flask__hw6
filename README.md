@@ -2,9 +2,9 @@
 ![example workflow](https://github.com/Hillel-i-Python-Pro-i-2022-12-27/homework__kulyk__kyrylo__hw5/actions/workflows/main-workflow.yml/badge.svg)
 ### Student [Hillel IT School](https://ithillel.ua/), I am from Odessa.
 ***
-## 📝Homework 6
+## 📝Homework 6 & 7
 Flask application \
-Homework 5 designed in the Flask framework
+Homework designed in the Flask framework + DB SQLite
 ***
 ### ▶️Run
 Run homework.
